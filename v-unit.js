@@ -33,7 +33,7 @@
 
         // The observer is necessary for two main reasons: window resizing and scrollbars
         setViewportObserver: function() {
-            return win.setInterval(VUnit.viewportHasChanged, VUnit.settings.executionInterval);
+            return $( window ).resize(_.throttle(VUnit.viewportHasChanged, executionInterval));
         },
 
         // Checks if viewport dimensions have changed
@@ -72,6 +72,10 @@
             for (var i = 1; i <= 100; i++) {
                 rules += '.vh' + i + '{height:' + Math.round(computedHeight * i) + 'px;}' +
                          '.vw' + i + '{width:'  + Math.round(computedWidth * i)  + 'px;}\n';
+                rules += '.left-vw' + i + '{left:' + Math.round(computedHeight * i) + 'px;}' +
+                        '.right-vw' + i + '{right:' + Math.round(computedWidth * i) + 'px;}\n';
+                rules += '.top-vh' + i + '{top:' + Math.round(computedHeight * i) + 'px;}' +
+                        '.bottom-vh' + i + '{bottom:' + Math.round(computedWidth * i) + 'px;}\n';
             }
 
             // IE < 8 checking
